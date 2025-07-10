@@ -58,21 +58,10 @@ async function postApiData(url, data) {
 /**
  * Populates the About section with profile data.
  */
-async function populateAboutSection() {
-    // --- IMPORTANT CHANGE HERE ---
-    // UNCOMMENT the line below to fetch data from your FastAPI API
-    const profileData = await fetchApiData(`${API_BASE_URL}/api/profile`);
 
-    // COMMENT OUT or DELETE the hardcoded profileData object below
-    // const profileData = {
-    //     name: "Jaggu",
-    //     bio: "A passionate developer specializing in Python and web technologies. I build robust and efficient applications with a focus on clean code and user experience. I'm always eager to learn new things and contribute to impactful projects.",
-    //     imageUrl: "https://placehold.co/250x250/E0E7FF/4F46E5?text=Profile+Pic",
-    //     socials: [
-    //         { platform: "LinkedIn", url: "https://www.linkedin.com/in/jagadish-pokharel/", icon: "linkedin" },
-    //         { platform: "GitHub", url: "https://github.com/jagadish-pokharel", icon: "github" }
-    //     ]
-    // };
+async function populateAboutSection() {
+    // This line fetches data from your FastAPI API
+    const profileData = await fetchApiData(`${API_BASE_URL}/api/profile`);
 
     if (profileData) {
         document.getElementById('profileName').textContent = profileData.name;
@@ -97,8 +86,10 @@ async function populateAboutSection() {
 
             let svgPath = '';
             if (social.icon === 'linkedin') {
+                // CORRECT LINKEDIN SVG PATH - DO NOT ALTER
                 svgPath = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM4 9H0v12h4V9zM2 6a2 2 0 110-4 2 2 0 010 4z" /></svg>';
             } else if (social.icon === 'github') {
+                // CORRECT GITHUB SVG PATH - DO NOT ALTER
                 svgPath = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.799 8.205 11.385.6.11.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.758-1.333-1.758-1.087-.745.083-.729.083-.729 1.205.085 1.838 1.838 1.238 1.838 1.238 1.07 1.834 2.807 1.304 3.49.997.108-.775.419-1.304.762-1.604-2.665-.304-5.466-1.332-5.466-5.93 0-1.31.465-2.382 1.235-3.22-.12-.304-.535-1.52.117-3.176 0 0 1-.322 3.295 1.23.96-.267 1.98-.401 3-.407 1.02.006 2.04.14 3 .407 2.295-1.552 3.295-1.23 3.295-1.23.652 1.656.237 2.872.117 3.176.77.838 1.235 1.91 1.235 3.22 0 4.61-2.805 5.624-5.475 5.92.43.37.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .32.21.693.825.575C20.565 21.187 24 16.702 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>';
             }
             link.innerHTML = svgPath;
@@ -109,7 +100,6 @@ async function populateAboutSection() {
         document.getElementById('profileBio').textContent = "Failed to load profile. Please check API connection and FastAPI server logs.";
     }
 }
-
 /**
  * Populates the Projects section with project data from FastAPI.
  */
