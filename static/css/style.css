@@ -1,0 +1,49 @@
+/* Import Google Font - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+.container {
+    max-width: 1200px; /* Max width for content */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Specific styling for sections to give them some visual separation */
+section {
+    min-height: 80vh; /* Ensure sections take up most of the viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4rem; /* Adjust for header */
+    padding-bottom: 4rem; /* Adjust for header */
+}
+
+/* Responsive adjustments for header navigation */
+@media (max-width: 768px) {
+    header nav ul {
+        display: none; /* Hide nav links on small screens */
+    }
+    header nav {
+        justify-content: center; /* Center title when nav is hidden */
+    }
+}
+
+/* Custom button hover effect */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
