@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
+import os
 
 # 1. Create your FastAPI application instance
 app = FastAPI(
@@ -19,6 +20,9 @@ origins = [
     "http://localhost",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "https://*.onrender.com", # Allow Render's default domains
+    "https://jagadishpokharel58.com.np", # Your custom domain
+    "https://www.jagadishpokharel58.com.np", 
     # If you still need to open index.html directly from your file system (e.g., file:///path/to/index.html)
     # and it makes requests before FastAPI serves it, you might need "null" here.
     # But now that FastAPI serves it, it's generally not needed.
@@ -31,6 +35,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+from fastapi.middleware.gzip import GZipMiddleware
+app.add_middleware(GZipMiddleware)
 
 # --- Serve Static Files ---
 # CORRECTED: Directory is "static" relative to main.py
@@ -46,10 +52,19 @@ class Item(BaseModel):
     price: float
     tax: Optional[float] = None
 
+
+
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    port = int(os.environ.get("PORT", 8000))  # Render sets $PORT
+    uvicorn.run(app, host="0.0.0.0", port=port)
 # --- Path Operations (API Endpoints) ---
 
 # CORRECTED: Root endpoint to serve your index.html from the 'templates' folder
 # When a user goes to http://127.0.0.1:8000/, this will return your main HTML page.
+@app.head("/", response_class=HTMLResponse)  # Add this
+
 @app.get("/", response_class=HTMLResponse)
 async def read_index():
     """
